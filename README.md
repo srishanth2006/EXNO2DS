@@ -1,5 +1,4 @@
 # EXNO2DS
-
 # AIM:
       To perform Exploratory Data Analysis on the given data set.
       
@@ -24,140 +23,127 @@ STEP 7: Use cross tabulation method to quantitatively analyze the relationship b
 STEP 8: Use heatmap method of representation to show relationships between two variables, one plotted on each axis.
 
 ## CODING AND OUTPUT
-
+```
+Name: SRISHANTH J
+Reg No:2122232404160
+```
 ```
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 import seaborn as sns
-data=pd.read_csv("/content/titanic_dataset.csv")
-data
+df=pd.read_csv("titanic_dataset.csv")
+df
 ```
-
-
-```
-data.info()
+<img width="997" height="362" alt="image" src="https://github.com/user-attachments/assets/004fcaf9-26cb-454f-8b6f-4853464d54a7" />
 
 ```
-<img width="420" height="288" alt="Screenshot (1056)" src="https://github.com/user-attachments/assets/cf8c055c-d3ed-403d-81ae-e59b6dc8d3ec" />
+df.info()
+```
+<img width="377" height="337" alt="image" src="https://github.com/user-attachments/assets/024f06f1-240d-4f21-8cec-24ba4a74db79" />
 
 ```
-data.describe()
+df.set_index("PassengerId",inplace=True)
+df.describe()
+```
+<img width="337" height="165" alt="image" src="https://github.com/user-attachments/assets/42bcd77c-9e08-4191-aa8b-bb8575ec721a" />
 
 ```
-<img width="572" height="249" alt="Screenshot (1057)" src="https://github.com/user-attachments/assets/f403763f-9f21-447d-8418-342ba164c7a3" />
+df.shape
+```
+<img width="157" height="41" alt="image" src="https://github.com/user-attachments/assets/05512259-473e-496f-8cf5-c8caf93fe42b" />
 
 ```
-data.dtypes
+df.set_index("PassengerId",inplace=True)
+df.describe()
+```
+<img width="562" height="252" alt="image" src="https://github.com/user-attachments/assets/c913a409-1f75-4f2d-9a04-e9fedaf5e566" />
 
 ```
-
-<img width="438" height="382" alt="Screenshot (1058)" src="https://github.com/user-attachments/assets/90e771b9-9b89-41aa-a027-3a24a78bae7f" />
+df.nunique()
+```
+<img width="185" height="222" alt="image" src="https://github.com/user-attachments/assets/b087c2c4-c114-4ca1-b6b7-fd15ac833c1f" />
 
 ```
-data.shape
+df["Survived"].value_counts()
+```
+<img width="352" height="76" alt="image" src="https://github.com/user-attachments/assets/f4a01b97-4e1c-4a86-8d17-8174b7ea7fa5" />
 
 ```
-
-<img width="180" height="65" alt="Screenshot (1059)" src="https://github.com/user-attachments/assets/9de7c88f-80c7-4e29-8b88-a2126d645eba" />
+per=(df["Survived"].value_counts()/df.shape[0]*100).round(2)
+per
+```
+<img width="367" height="75" alt="image" src="https://github.com/user-attachments/assets/09eb80b7-9215-4361-9215-40464097fd71" />
 
 ```
-data.value_counts()
+sns.countplot(data=df,x="Survived")
+```
+<img width="685" height="483" alt="image" src="https://github.com/user-attachments/assets/b53fa957-31cd-4ea0-816b-11b6a41da698" />
 
 ```
-
-<img width="772" height="487" alt="Screenshot (1060)" src="https://github.com/user-attachments/assets/fdb40395-eb1b-4c9e-af35-27d98898866e" />
+df
+```
+<img width="965" height="397" alt="image" src="https://github.com/user-attachments/assets/e41f42e8-c643-4cb9-9518-a290d804bafe" />
 
 ```
-
-data['Name'].value_counts()
+df.Pclass.unique()
+```
+<img width="377" height="38" alt="image" src="https://github.com/user-attachments/assets/6189fc1e-8ca5-44e0-b3c5-2e63256bb0df" />
 
 ```
-
-<img width="551" height="402" alt="Screenshot (1061)" src="https://github.com/user-attachments/assets/83e16b9c-09cd-46a1-9d91-a59dc2cf3557" />
+df.rename(columns={'Sex':'Gender'},inplace=True)
+df
+```
+<img width="995" height="401" alt="image" src="https://github.com/user-attachments/assets/efb2c1a5-2583-4bed-9d2a-41844d4b04c8" />
 
 ```
-
-data.set_index("PassengerId") #or data.set_index("PassengerId", inplace=True)
-data
-
-````
-
-<img width="778" height="476" alt="Screenshot (1062)" src="https://github.com/user-attachments/assets/f6dde0ae-3300-4c33-b6f2-4556d0b7e281" />
+sns.catplot(x="Gender",col="Survived",kind="count",data=df,height=5,aspect=.7)
+```
+<img width="831" height="540" alt="image" src="https://github.com/user-attachments/assets/eeb3ab99-e5c2-4cc1-8516-80d2628d996f" />
 
 ```
-
-data.nunique()
+sns.catplot(x="Survived",hue="Gender",data=df,kind="count")
+```
+<img width="641" height="533" alt="image" src="https://github.com/user-attachments/assets/8f375ac2-fa11-4237-9793-eb7fecb0591f" />
 
 ```
-
-<img width="548" height="372" alt="Screenshot (1063)" src="https://github.com/user-attachments/assets/04b8aa2f-f246-496e-9303-591a221bddb6" />
+df.boxplot(column="Age",by="Survived")
+```
+<img width="596" height="493" alt="image" src="https://github.com/user-attachments/assets/0be4b397-1454-4192-b27c-0621aa4842b0" />
 
 ```
-sns.countplot(data=data,x='Survived')
+sns.scatterplot(x=df["Age"],y=df["Fare"])
+```
+<img width="642" height="461" alt="image" src="https://github.com/user-attachments/assets/f44ee912-e82e-454a-9558-2e5435f2bc91" />
 
 ```
-
-<img width="683" height="386" alt="Screenshot (1064)" src="https://github.com/user-attachments/assets/08a34140-e5c7-4a18-918d-fd53e5534578" />
-
+sns.jointplot(x="Age",y="Fare",data=df)
+```
+<img width="630" height="632" alt="image" src="https://github.com/user-attachments/assets/b2c3c397-3627-48ad-b9e6-7c19cd0ffafa" />
 
 ```
-data.rename(columns={'Sex':'Gender','PassengerId':'P_ID'},inplace=True)
-data
+fig, ax1 = plt.subplots(figsize=(8,5))
+plt = sns.boxplot(ax=ax1,x='Pclass',y='Age',hue='Gender',data=df)
+```
+<img width="790" height="462" alt="image" src="https://github.com/user-attachments/assets/0ba52f54-3609-4784-90dd-69d17aa57c06" />
 
 ```
-
-<img width="747" height="412" alt="Screenshot (1065)" src="https://github.com/user-attachments/assets/d34ceb32-e997-49b6-9f36-9d563cbb0fb0" />
+sns.catplot(data=df,col="Survived",x="Gender",hue="Pclass",kind="count")
+```
+<img width="1000" height="505" alt="image" src="https://github.com/user-attachments/assets/018b1fb4-e9c8-493b-b0b6-8a6a3e9b9a49" />
 
 ```
-
-sns.catplot(x="Gender",col="Survived",kind="count",data=data)
-
-```
-
-<img width="770" height="408" alt="Screenshot (1066)" src="https://github.com/user-attachments/assets/6c0c8800-6a1d-4817-870c-10f0fffa98bc" />
-
-```
-
-data.boxplot(column="Age",by="Survived")
-
-```
-
-<img width="601" height="391" alt="Screenshot (1067)" src="https://github.com/user-attachments/assets/f2063af8-8e0e-471b-adbb-ec88368794b0" />
-
-```
-
-sns.scatterplot(x=data["Age"],y=data["Fare"])
-
-```
-
-<img width="531" height="380" alt="Screenshot (1068)" src="https://github.com/user-attachments/assets/daec3439-608d-417a-9016-d8b83ec1fc24" />
-
-```
-
-plt=sns.boxplot(x='Pclass', y='Age', hue='Gender', data=data)
-
-```
-
-<img width="619" height="372" alt="Screenshot (1069)" src="https://github.com/user-attachments/assets/9a80b6b2-d176-4f72-ba6b-2e3d93d2395c" />
-
-```
-
-sns.catplot(data=data, col="Survived", x="Gender", hue='Pclass', kind="count")
-
-```
-
-<img width="770" height="400" alt="Screenshot (1070)" src="https://github.com/user-attachments/assets/02b878c8-0777-4c6a-97a7-07e278505055" />
-
-
-```
-
-corr=data.corr(numeric_only=True)
+numeric_df =df.select_dtypes(include=['number'])
+corr =numeric_df.corr()
 sns.heatmap(corr,annot=True)
+```
+<img width="580" height="467" alt="image" src="https://github.com/user-attachments/assets/0467966b-fa4f-4b2d-ad60-a6f9d9770871" />
 
 ```
-<img width="555" height="384" alt="Screenshot (1071)" src="https://github.com/user-attachments/assets/b9c7a194-1836-4e22-9d2d-6a5d903393f7" />
+sns.pairplot(df)
+```
+<img width="631" height="645" alt="image" src="https://github.com/user-attachments/assets/94bda8de-fd75-41c6-9beb-79c1c1a272f8" />
 
 
 # RESULT
-
-Thus, the programs are executed and verified successfully.
+Thus, To perform Exploratory Data Analysis on the given data set is implemented successfully.
